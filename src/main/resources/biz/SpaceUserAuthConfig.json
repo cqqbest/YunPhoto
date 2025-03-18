@@ -1,0 +1,63 @@
+{
+
+  "permission": [
+    {
+      "key": "spaceUser:manger",
+      "name": "成员管理",
+      "description": "管理空间成员，添加或移除成员"
+    },
+    {
+      "key": "picture:edit",
+      "name": "编辑图片",
+      "description": "编辑团队空间图片"
+    },
+    {
+      "key": "picture:delete",
+      "name": "删除图片",
+      "description": "删除团队空间图片"
+    },
+    {
+      "key": "picture:view",
+      "name": "查看图片",
+      "description": "查看团队空间图片"
+    },
+    {
+      "key": "picture:upload",
+      "name": "上传图片",
+      "description": "上传图片到团队空间"
+    }
+  ],
+  "role": [
+    {
+      "key": "viewer",
+      "name": "浏览者",
+      "permission": [
+        "picture:view"
+      ],
+      "description": "只能查看团队空间图片，查看"
+    },
+    {
+      "key": "editor",
+      "name": "编辑者",
+      "permission": [
+        "picture:view",
+        "picture:edit",
+        "picture:delete",
+        "picture:upload"
+        ],
+      "description": "可以编辑团队空间图片,查看，编辑，删除，上传图片"
+    },
+    {
+      "key": "admin",
+      "name": "管理员",
+      "permission": [
+        "picture:view",
+        "picture:edit",
+        "picture:delete",
+        "picture:upload",
+        "spaceUser:manger"
+      ],
+      "description": "可以管理团队空间成员，查看、编辑、删除、上传图片"
+    }
+  ]
+}

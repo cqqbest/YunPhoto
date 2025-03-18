@@ -1,0 +1,117 @@
+server:
+  port: 8106
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        max-age: 2592000
+
+spring:
+  #数据库
+  datasource:
+    password: 134679
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yunphoto?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+  #redis
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 5
+        min-idle: 1
+
+  #Session
+  session:
+    #存储位置
+    store-type: redis
+    timeout: 2592000
+  #设置最大文件大小
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+  #空间图片分表
+  shardingsphere:
+    datasource:
+      name: yunphoto
+      yunphoto:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/yunphoto
+        username: root
+        password: 134679
+      rules:
+        sharding:
+          tables:
+            picture:
+              actual-data-nodes: yunphoto.picture #动态分表自定义分表规则
+              table-strategy:
+                standard:
+                  sharding-column: spaceId
+                  sharding-algorithm-name: picture_sharding_algorithm #使用在定义分表算法
+        sharding-algorithms:
+          picture_sharding_algorithm:
+            type: CLASS_BASED
+            props:
+              strategy: standard
+              algorithmClassName: com.cq.YunPhoto.Manager.sharding.PictureShardingAlgorithm
+      props:
+        sql-show: true
+
+
+  #mybatis-puls
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false #关闭驼峰
+    # 仅在开发环境开启日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+    enable-sql-runner: true
+
+
+  # Knife4j配置
+knife4j:
+    # 开启Knife4j增强模式
+    enable: true
+    # API文档标题
+    title: API文档
+    # API文档描述
+    description: 这是一个API文档示例
+    # API文档版本
+    version: 1.0.0
+    # API文档基础路径
+    base-path: /api
+    # API文档分组名称
+    group:
+      test1:
+        group-name: 云图库
+        api-rule: package
+        api-rule-resources:
+          - com.cq.YunPhoto.Controller
+
+cos:
+  client:
+    host:
+    bucket:
+    secretId:
+    secretKey:
+    region:
+
+#阿里云设置
+aliYunApi:
+
+
+
+
+
+
+
