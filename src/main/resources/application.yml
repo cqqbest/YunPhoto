@@ -9,7 +9,7 @@ server:
 spring:
   #数据库
   datasource:
-    password: 134679
+    password: 
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/yunphoto?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
@@ -44,7 +44,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3306/yunphoto
         username: root
-        password: 134679
+        password: 
       rules:
         sharding:
           tables:
